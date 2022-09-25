@@ -9,8 +9,8 @@ function Hero() {
 				style={{ background: `url(${image.src}) center center no-repeat` }}
 				className='relative'
 			>
-				<div className=' bg-gradient-to-b from-transparent via-transparent to-[#04003d] backdrop-blur-xs md:backdrop-blur-none'>
-					<div className='bg-gradient-to-r from-[#030030] via-[#0300308d] to-transparent'>
+				<div className=' bg-gradient-to-b from-transparent via-transparent to-[rgb(4,0,5)] backdrop-blur-xs md:backdrop-blur-none'>
+					<div className='bg-gradient-to-r from-[rgb(4,0,5)] via-[rgba(4,0,5,0.5)] to-transparent'>
 						<div className='max-w-[680px] md:px-20 px-[10%] py-24 pt-10 md:py-40 '>
 							<h1 className=' font-jakarta flex flex-col font-bold text-xl mobilel:text-2xl md:text-5xl tracking-wide text-gray-300 '>
 								<span>Znajdź fachowca</span>
@@ -53,7 +53,7 @@ function Hero() {
 					<BsFillArrowDownCircleFill size={50} className='animate-bounce' />
 				</div>
 			</div>
-			<div className='h-44 bg-[#040035] font-jakarta text-gray-200 flex justify-center'>
+			<div className='h-44 bg-[rgb(4,0,5)] font-jakarta text-gray-200 flex justify-center'>
 				<h2 className=' text-3xl font-semibold py-5'>O Nas</h2>
 			</div>
 		</>
