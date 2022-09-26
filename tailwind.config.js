@@ -23,6 +23,7 @@ module.exports = {
 			tablet: '768px',
 			laptop: '1024px',
 			desktop: '1280px',
+			'4K': '2560px',
 			sm: '640px',
 			md: '768px',
 			lg: '1024px',

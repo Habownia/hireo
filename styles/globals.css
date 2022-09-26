@@ -3,3 +3,13 @@
 @tailwind utilities;
 
 @import url('https://fonts.googleapis.com/css2?family=Domine:wght@400;500;600;700&family=Trocchi&display=swap');
+
+html {
+	background-color: #040005;
+}
+
+/* naprawa białego tła na autofillu w inpucie */
+input:-webkit-autofill,
+input:-webkit-autofill:focus {
+	transition: background-color 600000s 0s, color 600000s 0s;
+}

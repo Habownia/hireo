@@ -6,7 +6,7 @@ function Layout(props: { children: any }) {
 		<>
 			<SEO />
 			<Nav />
-			<main className=' bg-slate-700'>{props.children}</main>
+			<main>{props.children}</main>
 		</>
 	);
 }
