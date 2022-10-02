@@ -1,32 +1,28 @@
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import { useFormik } from 'formik';
+import useGetInputs from '../hooks/useGetInputs';
 
 import Layout from '../components/layout';
-import Input from '../components/Input';
 
 import image from '../image/dawn-on-sea.jpg';
 
 function AddOrder() {
+	const [isSubmitted, setIsSubmitted] = useState(0);
 	const formik = useFormik({
 		initialValues: {
 			firstName: '',
 			lastName: '',
 			email: '',
 			description: '',
+			date: '',
 		},
-		onSubmit: (values) => {
-			const refs = [firstNameRef, lastNameRef, emailRef, descriptionRef];
+		onSubmit: async (values) => {
+			// po każdym zatwierdzeniu dodaje 1 do state'a
+			setIsSubmitted((prev) => prev + 1);
 
-			// loopuje przez tablice z referencjami i jeśli value jest puste to nakłada kolor czerwony
-			refs.forEach((elem) => {
-				elem.current!.value === ''
-					? (elem.current!.style.borderColor = 'rgb(239 68 68)')
-					: (elem.current!.style.borderColor = '');
-			});
-
-			// descriptionRef.current!.value === ''
-			// 	? (descriptionRef.current!.style.borderColor = 'rgb(239 68 68)')
-			// 	: (descriptionRef.current!.style.borderColor = '');
+			descriptionRef.current!.value === ''
+				? (descriptionRef.current!.style.borderColor = 'rgb(239 68 68)')
+				: (descriptionRef.current!.style.borderColor = '');
 
 			// mapuje przez każdy klucz w obiekcie values jeśli wystąpi string => '' to zwraca false, a jeśli nie to true. Potem sprawdzamy czy false występuje i zwracamy jego index
 			const isValuesTrue = () =>
@@ -35,16 +31,26 @@ function AddOrder() {
 					.indexOf(false);
 
 			if (isValuesTrue() < 0) {
-				alert(JSON.stringify(values, null, 2));
+				// const response = await fetch('/api/new-order', {
+				// 	method: 'POST',
+				// 	body: JSON.stringify(values),
+				// 	headers: {
+				// 		'Content-Type': 'application/json',
+				// 	},
+				// });
+				// const data = await response.json();
+				// console.log(data);
+
+				alert('Dodano nowe zadanie!');
+				// alert(JSON.stringify(values, null, 2));
 			} else {
 				alert('Wypełnij wszystkie pola!');
 			}
 		},
 	});
 
-	const firstNameRef = useRef<HTMLInputElement>(null);
-	const lastNameRef = useRef<HTMLInputElement>(null);
-	const emailRef = useRef<HTMLInputElement>(null);
+	const inputs = useGetInputs(formik, isSubmitted);
+
 	const descriptionRef = useRef<HTMLTextAreaElement>(null);
 
 	return (
@@ -74,30 +80,8 @@ function AddOrder() {
 								formik.handleSubmit(e);
 							}}
 						>
-							<Input
-								content='Imię'
-								type='text'
-								id='firstName'
-								handleChange={formik.handleChange}
-								value={formik.values.firstName}
-								reference={firstNameRef}
-							/>
-							<Input
-								content='Nazwisko'
-								type='text'
-								id='lastName'
-								handleChange={formik.handleChange}
-								value={formik.values.lastName}
-								reference={lastNameRef}
-							/>
-							<Input
-								content='E-mail'
-								type='email'
-								id='email'
-								handleChange={formik.handleChange}
-								value={formik.values.email}
-								reference={emailRef}
-							/>
+							{/* inputy zmapowane z hooka */}
+							{inputs}
 
 							<div className='relative'>
 								<textarea

@@ -1,16 +1,17 @@
-// import { useRef, useEffect } from 'react';
+import { useRef, useEffect } from 'react';
 
 function Input(props: any) {
-	// const reference = useRef<HTMLInputElement>(null);
+	const reference = useRef<HTMLInputElement>(null);
 
-	// useEffect(() => {
-	// if (reference.current?.style) {
-	// 	reference.current!.style.borderColor = '';
-	// 	reference.current.value === ''
-	// 		? (reference.current.style.borderColor = 'rgb(239 68 68)')
-	// 		: (reference.current.style.borderColor = '');
-	// }
-	// }, []);
+	useEffect(() => {
+		// sprawdza czy style istnieją i czy submit był klinkięty więcej niż 1 raz
+		if (reference.current?.style && props.submit >= 1) {
+			reference.current.value === ''
+				? (reference.current.style.borderColor = 'rgb(239 68 68)')
+				: (reference.current.style.borderColor = '');
+		}
+		// efekt rerunuje się przy kliknięciu submit lub przy zmianie wartości
+	}, [props.submit, props.value]);
 
 	return (
 		<div className='relative'>
@@ -22,7 +23,7 @@ function Input(props: any) {
 				name={props.id}
 				onChange={props.handleChange}
 				value={props.value}
-				ref={props.reference}
+				ref={reference}
 			/>
 			<label
 				htmlFor={props.id}
