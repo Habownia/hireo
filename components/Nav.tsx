@@ -54,7 +54,7 @@ function Nav() {
 										<Link href='/'>Usługi</Link>
 									</li>
 									<li className='transition hover:text-gray-300/75'>
-										<Link href='/'>Kalendarz</Link>
+										<Link href='/callendar'>Kalendarz</Link>
 									</li>
 									<li className='transition hover:text-gray-300/75'>
 										<Link href='/'>Kontakt</Link>

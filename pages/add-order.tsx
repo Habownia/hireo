@@ -31,15 +31,14 @@ function AddOrder() {
 					.indexOf(false);
 
 			if (isValuesTrue() < 0) {
-				// const response = await fetch('/api/new-order', {
-				// 	method: 'POST',
-				// 	body: JSON.stringify(values),
-				// 	headers: {
-				// 		'Content-Type': 'application/json',
-				// 	},
-				// });
-				// const data = await response.json();
-				// console.log(data);
+				const response = await fetch('/api/new-order', {
+					method: 'POST',
+					body: JSON.stringify(values),
+					headers: {
+						'Content-Type': 'application/json',
+					},
+				});
+				const data = await response.json();
 
 				alert('Dodano nowe zadanie!');
 				// alert(JSON.stringify(values, null, 2));

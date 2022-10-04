@@ -6,7 +6,7 @@ function Layout(props: { children: any }) {
 		<>
 			<SEO />
 			<Nav />
-			<main>{props.children}</main>
+			<main className='text-gray-100'>{props.children}</main>
 		</>
 	);
 }
