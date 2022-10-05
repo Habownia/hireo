@@ -87,7 +87,7 @@ function Nav() {
 										Dodaj zlecenie
 									</div>
 								</Link>
-								<Link href='/'>
+								<Link href='/sign-in'>
 									<div
 										className={`sm:block px-4 py-2 text-md font-medium text-teal-700 bg-gray-200 rounded-md cursor-pointer ${
 											show ? ' text-center z-20' : 'hidden'

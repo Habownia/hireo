@@ -2,13 +2,18 @@ import { useRef, useEffect } from 'react';
 
 function Input(props: any) {
 	const reference = useRef<HTMLInputElement>(null);
+	const label = useRef<HTMLLabelElement>(null);
 
 	useEffect(() => {
 		// sprawdza czy style istnieją i czy submit był klinkięty więcej niż 1 raz
-		if (reference.current?.style && props.submit >= 1) {
-			reference.current.value === ''
-				? (reference.current.style.borderColor = 'rgb(239 68 68)')
-				: (reference.current.style.borderColor = '');
+		if (reference.current?.style && label.current?.style && props.submit >= 1) {
+			if (reference.current.value === '') {
+				reference.current.style.borderColor = 'rgb(239 68 68)';
+				label.current.style.color = 'rgb(239 68 68)';
+			} else {
+				reference.current.style.borderColor = '';
+				label.current.style.color = '';
+			}
 		}
 		// efekt rerunuje się przy kliknięciu submit lub przy zmianie wartości
 	}, [props.submit, props.value]);
@@ -28,6 +33,7 @@ function Input(props: any) {
 			<label
 				htmlFor={props.id}
 				className='absolute text-sm text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-[#040005] px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1'
+				ref={label}
 			>
 				{props.content}
 			</label>
