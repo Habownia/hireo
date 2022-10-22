@@ -82,60 +82,22 @@ const Callendar = () => {
 		],
 	};
 
-	function isHigher(a: string[], b: string[], index: number) {
-		if (a[index] !== undefined) {
-			// -1 a<b 1 a>b 0 a==b
-			if (a[index] > b[index]) {
-				console.log(a[index], '> ', b[index]);
-				return -1;
-			} else if (a[index] === b[index]) {
-				console.log(a[index], ' = ', b[index]);
-				isHigher(a, b, index + 1);
-				return 0;
-			} else {
-				console.log(a[index], ' < ', b[index]);
-				return 1;
-			}
-		} else {
-			return -1;
+	// tworzymy unikalny set dat
+	const unique = [...new Set(props.orders.map((item) => item.date))].filter(
+		(elem) => {
+			const date = new Date(elem).getUTCFullYear();
+			const actualYear = new Date().getUTCFullYear();
+			// sprawdza czy np !(2030 > 2022) i !(1997 < 2022)
+			return !(date > actualYear) && !(date < actualYear) ? true : false;
 		}
-	}
+	);
 
-	let a = props.orders.sort((a, b) => {
-		const aSplitted = a.date.split('-');
-		const bSplitted = b.date.split('-');
+	console.log(unique);
 
-		// aSplitted.forEach((elem, index) => {
-		// const bElem = bSplitted[index];
-		let result = isHigher(aSplitted, bSplitted, 0);
-
-		// });
-
-		// if (aSplitted[0] > bSplitted[0]) {
-		// 	console.log('Rok a jest większy');
-		// } else if (aSplitted[0] === bSplitted[0]) {
-		// 	console.log('Roki są równe');
-		// 	if (aSplitted[1] > bSplitted[1]) {
-		// 		console.log('Miesiąc a jest większy');
-		// 	} else if (aSplitted[1] === bSplitted[1]) {
-		// 		console.log('Miesiące są równe');
-		// 	} else {
-		// 		console.log('Miesiąc a jest mniejszy');
-		// 	}
-		// } else {
-		// 	console.log('Rok a jest mniejszy');
-		// }
-		return result;
-		// return 1;
-	});
-
-	console.log(a);
-
-	// arr.sort((a, b) => a.name > b.name ? 1 : -1);
-
-	// console.log(props.orders[0].date.split('-')[2]);
-
-	// console.log('not sorted', props.orders);
+	// sortujemy daty w kolejności rosnącej
+	let sortedDates = unique.sort(
+		(a, b) => new Date(a).getTime() - new Date(b).getTime()
+	);
 
 	const monthsNames = [
 		'Styczeń',
@@ -167,13 +129,14 @@ const Callendar = () => {
 		12: [],
 	};
 
-	const allOrders = props.orders.forEach((elem) => {
+	// przydzielamy dni z obiektu do tablic miesięcy
+	sortedDates.forEach((elem) => {
 		// dzielimy datę na części
-		const dateChunked = elem.date.split('-');
-		// tworzymy z części obiekt
+		const dateChunked = elem.split('-');
+
 		const month = parseInt(dateChunked[1]);
 		const day = parseInt(dateChunked[2]);
-
+		// wypychamy do odpowiedniej tablicy
 		months[month].push(day);
 	});
 
