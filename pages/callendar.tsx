@@ -4,6 +4,7 @@ import { MongoClient } from 'mongodb';
 
 import Layout from '../components/layout';
 import { ReactNode } from 'react';
+import { exit } from 'process';
 
 type Data = {
 	id: string;
@@ -81,6 +82,61 @@ const Callendar = () => {
 		],
 	};
 
+	function isHigher(a: string[], b: string[], index: number) {
+		if (a[index] !== undefined) {
+			// -1 a<b 1 a>b 0 a==b
+			if (a[index] > b[index]) {
+				console.log(a[index], '> ', b[index]);
+				return -1;
+			} else if (a[index] === b[index]) {
+				console.log(a[index], ' = ', b[index]);
+				isHigher(a, b, index + 1);
+				return 0;
+			} else {
+				console.log(a[index], ' < ', b[index]);
+				return 1;
+			}
+		} else {
+			return -1;
+		}
+	}
+
+	let a = props.orders.sort((a, b) => {
+		const aSplitted = a.date.split('-');
+		const bSplitted = b.date.split('-');
+
+		// aSplitted.forEach((elem, index) => {
+		// const bElem = bSplitted[index];
+		let result = isHigher(aSplitted, bSplitted, 0);
+
+		// });
+
+		// if (aSplitted[0] > bSplitted[0]) {
+		// 	console.log('Rok a jest większy');
+		// } else if (aSplitted[0] === bSplitted[0]) {
+		// 	console.log('Roki są równe');
+		// 	if (aSplitted[1] > bSplitted[1]) {
+		// 		console.log('Miesiąc a jest większy');
+		// 	} else if (aSplitted[1] === bSplitted[1]) {
+		// 		console.log('Miesiące są równe');
+		// 	} else {
+		// 		console.log('Miesiąc a jest mniejszy');
+		// 	}
+		// } else {
+		// 	console.log('Rok a jest mniejszy');
+		// }
+		return result;
+		// return 1;
+	});
+
+	console.log(a);
+
+	// arr.sort((a, b) => a.name > b.name ? 1 : -1);
+
+	// console.log(props.orders[0].date.split('-')[2]);
+
+	// console.log('not sorted', props.orders);
+
 	const monthsNames = [
 		'Styczeń',
 		'Luty',
@@ -122,8 +178,8 @@ const Callendar = () => {
 	});
 
 	const monthsElements = monthsNames.map((elem, index) => {
-		const uniqueDays = [...new Set(months[index + 1])].map((elem) => (
-			<p>{elem}</p>
+		const uniqueDays = [...new Set(months[index + 1])].map((elem, index) => (
+			<p key={index}>{elem}</p>
 		));
 
 		return (
