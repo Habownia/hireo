@@ -6,7 +6,7 @@ import { AiFillCloseCircle } from 'react-icons/ai';
 
 import SEO from './seo';
 
-function Nav() {
+function Nav(props: { isLogged: boolean }) {
 	const [show, setShow] = useState(false);
 
 	function showBurger(): void {
@@ -74,28 +74,50 @@ function Nav() {
 							<div
 								className={`sm:flex md:flex-row md:static md:-translate-x-0 gap-5 ${
 									show
-										? 'flex z-20 absolute bottom-52 left-2/4 flex-col -translate-x-1/2 '
+										? 'flex z-20 items-center absolute bottom-52 left-2/4 flex-col -translate-x-1/2 '
 										: 'hidden'
 								}`}
 							>
 								<Link href='/add-order'>
 									<div
-										className={` sm:flex px-5 py-2.5 text-md font-medium text-gray-900 bg-teal-500 rounded-md shadow cursor-pointer ${
+										className={` sm:flex px-5 py-2.5 text-md font-medium text-gray-900 bg-teal-500 rounded-md shadow cursor-pointer hover:bg-teal-300 transition-all duration-500 ${
 											show ? 'flex z-20' : 'hidden'
 										}`}
 									>
 										Dodaj zlecenie
 									</div>
 								</Link>
-								<Link href='/sign-in'>
-									<div
-										className={`sm:block px-4 py-2 text-md font-medium text-teal-700 bg-gray-200 rounded-md cursor-pointer ${
-											show ? ' text-center z-20' : 'hidden'
-										}`}
-									>
-										Zaloguj
-									</div>
-								</Link>
+								{!props.isLogged && (
+									<Link href='/sign-in'>
+										<div
+											className={`sm:block px-4 py-2 text-md font-medium text-teal-700 bg-gray-200 rounded-md cursor-pointer ${
+												show ? ' text-center z-20' : 'hidden'
+											}`}
+										>
+											Zaloguj
+										</div>
+									</Link>
+								)}
+								{props.isLogged && (
+									<>
+										{/* <div
+											className={`sm:block px-4 py-2 text-md font-medium text-teal-700 bg-teal-100 rounded-md cursor-pointer ${
+												show ? ' text-center z-20' : 'hidden'
+											}`}
+										>
+											Wyloguj
+										</div> */}
+										<div
+											style={{
+												backgroundImage: `url("https://images.unsplash.com/photo-1667055595941-e88993dd1346?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1974&q=80")`,
+												backgroundRepeat: 'no-repeat',
+												backgroundPosition: 'center',
+												backgroundSize: 'cover',
+											}}
+											className={`flex w-11 h-11 rounded-2xl border-teal-500 border-2 cursor-pointer hover:border-red-400 transition-all duration-300 hover:border-[3px]`}
+										/>
+									</>
+								)}
 							</div>
 							<div className='block md:hidden'>
 								<button className='pl-5 pt-2 text-gray-200 transition hover:text-gray-200/75'>

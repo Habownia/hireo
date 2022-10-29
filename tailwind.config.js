@@ -15,6 +15,7 @@ module.exports = {
 			backdropBlur: {
 				xs: '2px',
 			},
+			
 		},
 		screens: {
 			mobilel: '425px',

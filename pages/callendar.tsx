@@ -102,7 +102,7 @@ const Callendar: NextPage<Props> = (props) => {
 	});
 
 	return (
-		<Layout>
+		<Layout isLogged={false} >
 			<h1 className='text-3xl font-semibold text-blue-300 flex justify-center py-8'>
 				Kalendarz
 			</h1>

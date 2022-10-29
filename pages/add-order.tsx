@@ -53,7 +53,7 @@ function AddOrder() {
 	const descriptionRef = useRef<HTMLTextAreaElement>(null);
 
 	return (
-		<Layout>
+		<Layout isLogged={false}>
 			<div className='flex flex-col items-center gap-3 text-gray-200'>
 				<div className='flex w-full'>
 					<div

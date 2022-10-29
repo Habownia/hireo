@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/router';
 import { useFormik } from 'formik';
+
 import { GiNinjaHeroicStance } from 'react-icons/gi';
 
 import Input from '../components/Input';
@@ -39,11 +40,12 @@ function SignIn() {
 			} else {
 				alert('Wypełnij wszystkie pola!');
 			}
+			router.push('/logged');
 		},
 	});
 
 	return (
-		<Layout>
+		<Layout isLogged={false}>
 			<div className='text-gray-50 flex gap-6 flex-col items-center justify-between mt-[25vh]'>
 				<GiNinjaHeroicStance
 					size={50}
